@@ -1,3 +1,5 @@
+import random
+from datetime import  timedelta, date
 class Person:
     def __init__(self, values):
         self.first_name = values[0].strip(',')
@@ -18,3 +20,7 @@ class Person:
 
     def __repr__(self):
         return self.__str__()
+
+    def generate_birthday(self):
+        day_diff = random.randint(18*365, 60*365)
+        self.birthday = date.today() - timedelta(days=day_diff)
