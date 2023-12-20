@@ -12,10 +12,10 @@ Plik csv w którym tworzony jest rok urodzin
 
 ## main.py
 Plik główny:
-*tworzenie tabelki, dodawanie do niej danych z pliku csv
-*filtrowanie z użyciem lambdy
-*tworzenie pliku dates.csv (zawiera wygenerowane lata)
-*tworzenie pliku persons_data.csv - dane z pliku dane.csv + wygenerowane daty urodzenia
+* tworzenie tabelki, dodawanie do niej danych z pliku csv
+* filtrowanie z użyciem lambdy
+* tworzenie pliku dates.csv (zawiera wygenerowane lata)
+* tworzenie pliku persons_data.csv - dane z pliku dane.csv + wygenerowane daty urodzenia
 
 ## person.py
 Zawiera klasę Person:
