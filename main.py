@@ -31,26 +31,26 @@ if __name__ == "__main__":
 
 all_people = CsvReader.ReadCsv(file_path)
 
-a_names = list(filter(lambda x: x.first_name.startswith('A'), all_people))
-print(a_names)
+#a_names = list(filter(lambda x: x.first_name.startswith('A'), all_people))
+#print(a_names)
 
-google_emails = list(filter(lambda x: '@gmail.com' in x.email, all_people))
-print(google_emails)
+#google_emails = list(filter(lambda x: '@gmail.com' in x.email, all_people))
+#print(google_emails)
 
 
 
-print("\nImiona na 'A':")
-person_with_name_starting_a = list(filter(lambda p: p.first_name.startswith('A') ,all_people))
-print(person_with_name_starting_a)
+#print("\nImiona na 'A':")
+#person_with_name_starting_a = list(filter(lambda p: p.first_name.startswith('A') ,all_people))
+#print(person_with_name_starting_a)
 
-print("\nImiona i nazwiska na ta sama litere")
-same_letter = list(filter(lambda p: p.first_name[0] == p.last_name[0], all_people ))
-print(same_letter)
+#print("\nImiona i nazwiska na ta sama litere")
+#same_letter = list(filter(lambda p: p.first_name[0] == p.last_name[0], all_people ))
+#print(same_letter)
 
-print("\nMiasto o najwiekszej ilosci osob")
-cities_list = list(map(lambda p: p.city, all_people))
-mpopulous_city = max(cities_list, key=lambda p: cities_list.count(p))
-print(mpopulous_city)
+#print("\nMiasto o najwiekszej ilosci osob")
+#cities_list = list(map(lambda p: p.city, all_people))
+#mpopulous_city = max(cities_list, key=lambda p: cities_list.count(p))
+#print(mpopulous_city)
 
 dof_birth = []
 
@@ -78,10 +78,7 @@ all_people = CsvReader.ReadCsv(file_path)
 person_db = Database()
 person_db.createTable()
 
-for p in all_people:
-    person_db.insert(p)
 
-person_db.saveAndCommit()
 
 for p in all_people:
     p.generate_birthday()
@@ -93,4 +90,45 @@ with open (f_path, 'w', newline = '') as plik_csv:
 
     for person in all_people:
         writer.writerow(person.__dict__.values())
+
+print("Co chcesz wykonać?\n1.Odfiltruj osoby o imienu na podaną literę \n2.Ofiltruj osoby które mają email w domenie google \n3.Odfiltruj osoby których imię i nazwisko zaczynają się na tą samą literę \n4.Wskaż z jakiego miasta jest najwięcej osób \n5.Wprowadź dane do bazy danych")
+choice = input("Wskaż numer polecenia:")
+
+def switch_case(choice):
+    if choice == "1":
+        print("Wybrano polecenie nr 1: Odfiltruj osoby o imienu na podaną literę")
+        letter = input("Wybierz literę:")
+        person_with_name_starting = list(filter(lambda p: p.first_name.lower().startswith(letter) ,all_people))
+        print(person_with_name_starting)
+    elif choice == "2":
+        print("Wybrano polecenie nr 2: Ofiltruj osoby które mają email w domenie google")
+        google_emails = list(filter(lambda x: '@gmail.com' in x.email, all_people))
+        print(google_emails)
+    elif choice == "3":
+        print("Wybrano polecenie nr 3: Odfiltruj osoby których imię i nazwisko zaczynają się na tą samą literę")
+        same_letter = list(filter(lambda p: p.first_name[0] == p.last_name[0], all_people ))
+        print(same_letter)
+    elif choice == "4":
+        print("Wybrano polecenie nr 4: Wskaż z jakiego miasta jest najwięcej osób")
+        cities_list = list(map(lambda p: p.city, all_people))
+        mpopulous_city = max(cities_list, key=lambda p: cities_list.count(p))
+        print(mpopulous_city)
+    elif choice == "5":
+        print("Wybrano polecenie nr 5: Wprowadź dane do bazy danych")
+        try:
+            for p in all_people:
+                person_db.insert(p)
+            person_db.saveAndCommit()
+            print("Dane zostały dodane do bazy")
+        except Exception as e:
+            print(f"Nie udało się dodać danych bo bazy: {e}")
+    else:
+        print("Wybrano niepoprawny numer")
+
+# Przykłady użycia
+switch_case(choice)
+#switch_case("2")
+#switch_case("3")
+#switch_case("4")
+#switch_case("5")
 
